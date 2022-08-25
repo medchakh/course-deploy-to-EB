@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Response } from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
@@ -29,8 +29,8 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   /**************************************************************************** */
   app.get("/filteredimage", async(req, res) => {
-    const image = req.query.image_url;
-    const filterImage = await filterImageFromURL(image)
+    const image  = req.query.image_url;
+    const filterImage  = await filterImageFromURL(image)
     if(!filterImage) return res.send('no image was found to filter')
     res.sendFile(filterImage,  () => deleteLocalFiles([filterImage]));
   })
